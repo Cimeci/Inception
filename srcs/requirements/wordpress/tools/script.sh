@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# Télécharger WP-CLI
+echo "Téléchargement de WP-CLI..."
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 
-# Installer WordPress
+echo "Installation de WordPress..."
 ./wp-cli.phar core download --allow-root
 ./wp-cli.phar config create \
     --dbname=$WORDPRESS_DB_NAME \
@@ -21,23 +21,16 @@ chmod +x wp-cli.phar
     --admin_email=$WP_MAIL \
     --allow-root
 
-# Forcer les URLs en HTTPS
+echo "Configuration des URLs en HTTPS..."
 ./wp-cli.phar option update siteurl "https://$DOMAIN_NAME" --allow-root
 ./wp-cli.phar option update home "https://$DOMAIN_NAME" --allow-root
 
-# Créer un utilisateur supplémentaire
-./wp-cli.phar user create $WP_USER2 $WP_MAIL2 \
-    --role=author \
-    --user_pass=$WP_PASS2 \
-    --allow-root
+echo "Importation du contenu WordPress depuis InceptionWordpress.xml..."
+if [ -f /var/www/html/InceptionWordpress.xml ]; then
+    ./wp-cli.phar import /var/www/html/InceptionWordpress.xml --authors=create --allow-root
+else
+    echo "Fichier InceptionWordpress.xml introuvable !"
+fi
 
-./wp-cli.phar user set-role 2 editor --allow-root
-
-# Importer le contenu WordPress
-./wp-cli.phar search-replace 'http://localhost' 'https://localhost' /var/www/html/InceptionWordpress.xml --all-tables --allow-root
-./wp-cli.phar import /var/www/html/InceptionWordpress.xml \
-    --authors=create \
-    --allow-root
-
-# Démarrer PHP-FPM
-exec php-fpm7.4 -F
+echo "Démarrage de PHP-FPM..."
+exec php-fpm8.0 -F
