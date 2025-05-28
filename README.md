@@ -24,4 +24,14 @@ On apprend à construire des images Docker personnalisées et à faire fonctionn
 Comprendre comment fonctionne Docker, comment construire ses propres images, et comment faire communiquer plusieurs services entre eux de façon propre et sécurisée.
 
 
+## [Le projet](Inception/subject.md)
 
+---
+
+# Credit
+
+README realiser par :
+- [inowak--](https://42.agouleme.fr/users/inowak--), Ilan Nowak--Glandier
+
+Projet realiser par :
+- [inowak--](https://42.agouleme.fr/users/inowak--), Ilan Nowak--Glandier
