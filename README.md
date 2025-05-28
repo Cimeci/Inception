@@ -31,7 +31,7 @@ Comprendre comment fonctionne Docker, comment construire ses propres images, et 
 # Credit
 
 README realiser par :
-- [inowak--](https://42.agouleme.fr/users/inowak--), Ilan Nowak--Glandier
+- [inowak--](https://profile.intra.42.fr/users/inowak--), Ilan Nowak--Glandier
 
 Projet realiser par :
-- [inowak--](https://42.agouleme.fr/users/inowak--), Ilan Nowak--Glandier
+- [inowak--](https://profile.intra.42.fr/users/inowak--), Ilan Nowak--Glandier
