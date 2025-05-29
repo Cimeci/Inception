@@ -8,34 +8,34 @@ Donc Docker est un enssemble de composant
 <details>
 <summary><h2>Les Notions Docker</h2></summary>
 
-## **Docker Engine** :
+**Docker Engine** :
 - moteur principal qui exécute les conteneurs.
 
-## **Docker CLI** :
+**Docker CLI** :
 - interface en ligne de commande `docker` pour manipuler images et conteneurs.
 
-## **Image Docker** :
+**Image Docker** :
 - snapshot figé d’un environnement prêt à tourner.
 
-## **Conteneur** :
+**Conteneur** :
 - instance active d’une image, isolée et indépendante.
 
-## **Docker Compose** :
+**Docker Compose** :
 - outil pour décrire et lancer plusieurs conteneurs liés via un fichier YAML.
 
-## **Volumes** :
+**Volumes** :
 - espaces de stockage persistants attachés aux conteneurs (données conservées même après arrêt).
 
-## **Réseaux Docker** :
+**Réseaux Docker** :
 - réseaux virtuels permettant la communication entre conteneurs dans un environnement isolé.
 
-## **Multi-conteneurs** :
+**Multi-conteneurs** :
 - architecture où plusieurs conteneurs collaborent (ex : WordPress + MariaDB + Nginx).
 
-## **Isolation et portabilité** :
+**Isolation et portabilité** :
 - chaque conteneur est isolé pour garantir portabilité et indépendance.
 
-## **Build et Run** :
+**Build et Run** :
 - construction d’images avec `docker build` et exécution avec `docker run`.  
 
 </details>
@@ -43,44 +43,46 @@ Donc Docker est un enssemble de composant
 <details>
 <summary><h2>DockerFile</h2></summary>
 
-### FROM — Spécifie l’image de base
+Le Dockerfile est un fichier contenant la recette de creation d'une image Docker d'un service
+
+```FROM``` — Spécifie l’image de base
 ```
 FROM alpine
 ```
-### RUN — Exécute une commande lors du build de l’image
+```RUN``` — Exécute une commande lors du build de l’image
 ```
 RUN apk update && apk add nginx
 ```
-### COPY — Copie des fichiers locaux vers l’image
+```COPY``` — Copie des fichiers locaux vers l’image
 ```
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
 ```
-### ADD — Comme COPY mais permet aussi d’extraire des archives ou charger depuis une URL
+```ADD``` — Comme COPY mais permet aussi d’extraire des archives ou charger depuis une URL
 ```
 ADD site.tar.gz /var/www/html
 ```
-### CMD — Commande exécutée quand le conteneur démarre
+```CMD``` — Commande exécutée quand le conteneur démarre
 ```
 CMD ["nginx", "-g", "daemon off;"]
 ```
-### ENTRYPOINT — Définit le binaire principal (plus strict que CMD)
+```ENTRYPOINT``` — Définit le binaire principal (plus strict que CMD)
 ```
 ENTRYPOINT ["ping"]
 CMD ["google.com"]  # → Résultat : ping google.com
 ```
-### EXPOSE — Documente le port utilisé (ne l’ouvre pas automatiquement)
+```EXPOSE``` — Documente le port utilisé (ne l’ouvre pas automatiquement)
 ```
 EXPOSE 80
 ```
-### WORKDIR — Définit le répertoire de travail pour les instructions suivantes
+```WORKDIR``` — Définit le répertoire de travail pour les instructions suivantes
 ```
 WORKDIR /var/www/html
 ```
-### ENV — Crée une variable d’environnement
+```ENV``` — Crée une variable d’environnement
 ```
 ENV MYSQL_ROOT_PASSWORD=mysecretpassword
 ```
-### VOLUME — Marque un dossier comme volume persistant
+```VOLUME``` — Marque un dossier comme volume persistant
 ```
 VOLUME /var/lib/mysql
 ```
