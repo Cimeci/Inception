@@ -46,13 +46,22 @@ Donc Docker est un enssemble de composant
 <details>
 <summary><h2>Mariadb</h2></summary>
 
+MariaDB est un système de gestion de base de données relationnelle (SGBDR) open source, dérivé de MySQL. Il est conçu pour être entièrement compatible avec MySQL tout en offrant de meilleures performances, de nouvelles fonctionnalités et une sécurité renforcée.
 
+- Remplaçant direct de MySQL.
+- Utilisé pour stocker et gérer les données de manière structurée.
+- Très utilisé dans les applications web pour gérer les bases de données dynamiques.
 
 </details>
 
 <details>
 <summary><h2>Nginx</h2></summary>
 
+Nginx (prononcé "engine-x") est un serveur web léger, performant et open source. Il peut également faire office de reverse proxy, de load balancer et de proxy mail.
+
+- Très rapide et économe en ressources.
+- Utilisé pour servir des sites web statiques ou dynamiques.
+- Peut faire le lien entre le client et d’autres services comme PHP-FPM ou des serveurs d'applications.
 
 
 </details>
@@ -60,11 +69,16 @@ Donc Docker est un enssemble de composant
 <details>
 <summary><h2>Wordpress</h2></summary>
 
+WordPress est un système de gestion de contenu (CMS) open source, utilisé pour créer et gérer des sites web facilement, sans nécessiter de compétences en développement web.
+
+- Écrit en PHP et utilise une base de données (comme MariaDB).
+- Très utilisé pour créer des blogs, sites vitrines ou e-commerce.
+- Dispose d'une grande communauté et de nombreux plugins/thèmes pour étendre ses fonctionnalités.
 
 
 </details>
 
 ---
 
-Ces notions couvrent la base nécessaire pour comprendre et réaliser le projet Inception avec Docker.
+Ces notions couvrent la base nécessaire pour comprendre et réaliser le projet Inception.
 
