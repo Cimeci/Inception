@@ -37,6 +37,8 @@ inception/
 └── docker-compose.yml
 ```
 
+---
+
 # [Les Notions](/notions.md)
 
 # [Le projet](/subject.md)
