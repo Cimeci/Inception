@@ -1,36 +1,26 @@
 #!/bin/sh
 
-echo "Téléchargement de WP-CLI..."
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
 chmod +x wp-cli.phar
 
-echo "Installation de WordPress..."
 ./wp-cli.phar core download --allow-root
-./wp-cli.phar config create \
-    --dbname=$WORDPRESS_DB_NAME \
-    --dbuser=$WORDPRESS_DB_USER \
-    --dbpass=$WORDPRESS_DB_PASSWORD \
-    --dbhost=$WORDPRESS_DB_HOST \
-    --allow-root
+./wp-cli.phar config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=mariadb --allow-root
+./wp-cli.phar core install --url=$DOMAIN_NAME --title=inception --admin_user=$WP_USER --admin_password=$WP_PASS --admin_email=$WP_MAIL --allow-root
+./wp-cli.phar user create $WP_USER2 $WP_MAIL2 --role=author --user_pass=$WP_PASS2 --allow-root
+./wp-cli.phar user set-role 2 editor --allow-root
 
-./wp-cli.phar core install \
-    --url=https://$DOMAIN_NAME \
-    --title="Inception" \
-    --admin_user=$WP_USER \
-    --admin_password=$WP_PASS \
-    --admin_email=$WP_MAIL \
-    --allow-root
+./wp-cli.phar theme install astra --activate --allow-root
 
-echo "Configuration des URLs en HTTPS..."
-./wp-cli.phar option update siteurl "https://$DOMAIN_NAME" --allow-root
-./wp-cli.phar option update home "https://$DOMAIN_NAME" --allow-root
+./wp-cli.phar plugin install redis-cache --activate --allow-root
+./wp-cli.phar config set WP_REDIS_HOST redis --allow-root
+./wp-cli.phar config set WP_REDIS_PORT 6379 --allow-root
 
-echo "Importation du contenu WordPress depuis InceptionWordpress.xml..."
-if [ -f /var/www/html/InceptionWordpress.xml ]; then
-    ./wp-cli.phar import /var/www/html/InceptionWordpress.xml --authors=create --allow-root
-else
-    echo "Fichier InceptionWordpress.xml introuvable !"
-fi
+# Install WordPress Importer plugin and import XML content
+./wp-cli.phar plugin install wordpress-importer --activate --allow-root
+./wp-cli.phar import /var/www/html/InceptionWordpress.xml --authors=create --allow-root
 
-echo "Démarrage de PHP-FPM..."
-exec php-fpm8.0 -F
+./wp-cli.phar plugin update --all --allow-root
+./wp-cli.phar redis enable --allow-root
+
+exec "$@"

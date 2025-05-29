@@ -1,10 +1,25 @@
-version: '3'
+volumes:
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      device: /home/inowak/data/mariadb
+      o: bind
+      type: none
+
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      device: /home/inowak/data/wordpress
+      o: bind
+      type: none
 
 services:
   nginx:
     container_name: nginx
     build: ./requirements/nginx
-    networks:
+    networks: 
       - inception
     volumes:
       - wordpress:/var/www/html
@@ -13,37 +28,36 @@ services:
     ports:
       - "443:443"
     restart: on-failure
-    env_file:
-      - .env
 
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    networks:
+    networks: 
       - inception
     volumes:
       - wordpress:/var/www/html
-      - ./InceptionWordpress.xml:/var/www/html/InceptionWordpress.xml
     depends_on:
       - mariadb
     env_file:
       - .env
+    expose:
+      - "9000"
     restart: on-failure
 
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
-    networks:
+    networks: 
       - inception
     volumes:
       - mariadb:/var/lib/mysql
     env_file:
       - .env
+    expose:
+      - "3306"
     restart: on-failure
-
-volumes:
-  wordpress:
-  mariadb:
 
 networks:
   inception:
+    name: inception
+    driver: bridge

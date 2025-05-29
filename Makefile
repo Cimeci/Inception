@@ -1,23 +1,26 @@
-NAME=inception
-DC=docker compose -f srcs/docker-compose.yml
+LOGIN	= inowak
+
+all: up
 
 up:
-	$(DC) up -d --build
+	@echo "🚀 Starting containers..."
+	@sudo mkdir -p /home/$(LOGIN)/data/mariadb /home/$(LOGIN)/data/wordpress
+	@sudo chown -R $(LOGIN):$(LOGIN) /home/$(LOGIN)/data
+	@sudo chmod -R 755 /home/$(LOGIN)/data
+	@docker compose -f ./srcs/docker-compose.yml up -d
 
 down:
-	$(DC) down
+	@echo "🛑 Stopping containers..."
+	@docker compose -f ./srcs/docker-compose.yml down
 
-re: down up
+clean: down
+	@echo "🧹 Cleaning data..."
+	@sudo rm -rf /home/$(LOGIN)/data
 
-logs:
-	$(DC) logs -f
+fclean: clean
+	@echo "🗑️ Removing all Docker images and containers..."
+	@docker system prune -af
 
-clean:
-	$(DC) down -v
-	docker system prune -f
+re: fclean up
 
-ps:
-	$(DC) ps
-
-
-.PHONY: up down re logs clean ps
+.PHONY: all up down clean fclean re
