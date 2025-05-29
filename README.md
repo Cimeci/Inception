@@ -41,7 +41,9 @@ inception/
 
 # [Le projet](/subject.md)
 
-## ©️ Credit
+-- 
+
+# ©️ Credit
 
 README realise par :
 - [inowak--](https://profile.intra.42.fr/users/inowak--), Ilan Nowak--Glandier
