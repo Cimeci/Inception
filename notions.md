@@ -14,9 +14,6 @@ Donc Docker est un enssemble de composant
 ## **Docker CLI** :
 - interface en ligne de commande `docker` pour manipuler images et conteneurs.
 
-## **Dockerfile** :
-- fichier texte définissant étape par étape la construction d’une image Docker.
-
 ## **Image Docker** :
 - snapshot figé d’un environnement prêt à tourner.
 
@@ -40,6 +37,53 @@ Donc Docker est un enssemble de composant
 
 ## **Build et Run** :
 - construction d’images avec `docker build` et exécution avec `docker run`.  
+
+</details>
+
+<details>
+<summary><h2>DockerFile</h2></summary>
+
+### FROM — Spécifie l’image de base
+```
+FROM alpine
+```
+### RUN — Exécute une commande lors du build de l’image
+```
+RUN apk update && apk add nginx
+```
+### COPY — Copie des fichiers locaux vers l’image
+```
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
+```
+### ADD — Comme COPY mais permet aussi d’extraire des archives ou charger depuis une URL
+```
+ADD site.tar.gz /var/www/html
+```
+### CMD — Commande exécutée quand le conteneur démarre
+```
+CMD ["nginx", "-g", "daemon off;"]
+```
+### ENTRYPOINT — Définit le binaire principal (plus strict que CMD)
+```
+ENTRYPOINT ["ping"]
+CMD ["google.com"]  # → Résultat : ping google.com
+```
+### EXPOSE — Documente le port utilisé (ne l’ouvre pas automatiquement)
+```
+EXPOSE 80
+```
+### WORKDIR — Définit le répertoire de travail pour les instructions suivantes
+```
+WORKDIR /var/www/html
+```
+### ENV — Crée une variable d’environnement
+```
+ENV MYSQL_ROOT_PASSWORD=mysecretpassword
+```
+### VOLUME — Marque un dossier comme volume persistant
+```
+VOLUME /var/lib/mysql
+```
 
 </details>
 
