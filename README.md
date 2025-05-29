@@ -41,7 +41,7 @@ inception/
 
 # [Le projet](/subject.md)
 
--- 
+--- 
 
 # ©️ Credit
 
