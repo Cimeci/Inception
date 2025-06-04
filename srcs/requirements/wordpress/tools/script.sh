@@ -12,15 +12,6 @@ chmod +x wp-cli.phar
 
 ./wp-cli.phar theme install astra --activate --allow-root
 
-./wp-cli.phar plugin install redis-cache --activate --allow-root
-./wp-cli.phar config set WP_REDIS_HOST redis --allow-root
-./wp-cli.phar config set WP_REDIS_PORT 6379 --allow-root
-
-# Install WordPress Importer plugin and import XML content
-./wp-cli.phar plugin install wordpress-importer --activate --allow-root
-./wp-cli.phar import /var/www/html/InceptionWordpress.xml --authors=create --allow-root
-
-./wp-cli.phar plugin update --all --allow-root
-./wp-cli.phar redis enable --allow-root
+[...]
 
 exec "$@"

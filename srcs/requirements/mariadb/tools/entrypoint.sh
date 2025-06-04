@@ -6,4 +6,3 @@ if [ -f /entrypoint-initdb.d/init.sql.template ]; then
 fi
 
 exec "$@"
-

@@ -2,22 +2,18 @@ FROM debian:bullseye
 
 RUN apt update -y && apt upgrade -y && apt install -y curl php-fpm php-mysqli
 
-#ADD RIGHTS TO /run/php 
+# setup PHP-FPM
 RUN mkdir -p /run/php && chown www-data:www-data /run/php
 
-#COPY WORDPRESS CONFIG AND SET THE WORK DIR
+# setup Wordpress
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
 WORKDIR /var/www/html
 
-#COPY XML FILE FOR WORDPRESS IMPORT
-COPY ./InceptionWordpress.xml /var/www/html/
-RUN chown www-data:www-data /var/www/html/InceptionWordpress.xml
-
-#COPY SETUP SCRIPT AND ADD RIGHTS
+# initialize Wordpress
 COPY ./tools/script.sh .
 RUN chmod +x script.sh
 
-#SET PORTS 9000 LIKE SUBJECT ASK
+#port PHP-FPM
 EXPOSE 9000
 
 ENTRYPOINT ["/var/www/html/script.sh"]
