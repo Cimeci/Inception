@@ -19,7 +19,9 @@ clean: down
 
 fclean: clean
 	@echo "🗑️ Removing all Docker images and containers..."
-	@docker system prune -af
+	@docker system prune -af --volumes
+	@docker network prune -f
+	
 
 re: fclean up
 
